@@ -131,157 +131,116 @@ class _CarteiraWidgetState extends State<CarteiraWidget>
           mainAxisSize: MainAxisSize.max,
           children: [
             Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    AuthUserStreamWidget(
-                      child: StreamBuilder<List<AcaoRecord>>(
-                        stream: queryAcaoRecord(
-                          queryBuilder: (acaoRecord) => acaoRecord.where('tipo',
-                              isEqualTo: valueOrDefault<String>(
-                                valueOrDefault(
-                                    currentUserDocument?.tipoInvestimento, ''),
-                                'Conservador',
-                              )),
+              child: AuthUserStreamWidget(
+                child: StreamBuilder<List<AcaoRecord>>(
+                  stream: queryAcaoRecord(
+                    queryBuilder: (acaoRecord) => acaoRecord.where('tipo',
+                        isEqualTo: valueOrDefault<String>(
+                          valueOrDefault(
+                              currentUserDocument?.tipoInvestimento, ''),
+                          'Conservador',
+                        )),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitPumpingHeart(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 40,
+                          ),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                  size: 40,
+                      );
+                    }
+                    List<AcaoRecord> listViewAcaoRecordList = snapshot.data!;
+                    if (listViewAcaoRecordList.isEmpty) {
+                      return Center(
+                        child: Image.asset(
+                          'assets/images/emptyBudgets@2x.png',
+                          width: MediaQuery.of(context).size.width * 0.8,
+                          height: 400,
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: listViewAcaoRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewAcaoRecord =
+                            listViewAcaoRecordList[listViewIndex];
+                        return Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                          child: InkWell(
+                            onTap: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetalhesTransacaoWidget(
+                                    detalhesAcao: listViewAcaoRecord,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              width: 100,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.155,
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    FlutterFlowTheme.of(context).degrade1,
+                                    FlutterFlowTheme.of(context).degrade2
+                                  ],
+                                  stops: [0, 1],
+                                  begin: AlignmentDirectional(0, -1),
+                                  end: AlignmentDirectional(0, 1),
+                                ),
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(20),
+                                  bottomRight: Radius.circular(10),
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(20),
                                 ),
                               ),
-                            );
-                          }
-                          List<AcaoRecord> listViewAcaoRecordList =
-                              snapshot.data!;
-                          if (listViewAcaoRecordList.isEmpty) {
-                            return Center(
-                              child: Image.asset(
-                                'assets/images/emptyBudgets@2x.png',
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                height: 400,
-                              ),
-                            );
-                          }
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: listViewAcaoRecordList.length,
-                            itemBuilder: (context, listViewIndex) {
-                              final listViewAcaoRecord =
-                                  listViewAcaoRecordList[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 12),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetalhesTransacaoWidget(
-                                          detalhesAcao: listViewAcaoRecord,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.155,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          FlutterFlowTheme.of(context).degrade1,
-                                          FlutterFlowTheme.of(context).degrade2
-                                        ],
-                                        stops: [0, 1],
-                                        begin: AlignmentDirectional(0, -1),
-                                        end: AlignmentDirectional(0, 1),
-                                      ),
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(20),
-                                      ),
-                                    ),
-                                    child: Row(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  12, 12, 12, 12),
-                                          child: Column(
+                                                  0, 0, 0, 4),
+                                          child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 4),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      listViewAcaoRecord.nome!,
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                fontSize: 18,
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 8),
-                                                child: Text(
-                                                  listViewAcaoRecord.codigo!,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
-                                                ),
-                                              ),
                                               Text(
-                                                'R\$ ${listViewAcaoRecord.preco?.toString()}',
+                                                listViewAcaoRecord.nome!,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .title1
+                                                        .bodyText2
                                                         .override(
                                                           fontFamily:
                                                               'Lexend Deca',
-                                                          fontSize: 22,
+                                                          fontSize: 18,
                                                         ),
                                               ),
                                             ],
@@ -290,33 +249,54 @@ class _CarteiraWidgetState extends State<CarteiraWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  8, 0, 20, 0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: Image.network(
-                                              valueOrDefault<String>(
-                                                listViewAcaoRecord.foto,
-                                                'https://e7.pngegg.com/pngimages/143/504/png-clipart-ticker-symbol-computer-icons-portfolio-chart-market-blue-angle.png',
-                                              ),
-                                              width: 74,
-                                              height: 74,
-                                              fit: BoxFit.cover,
-                                            ),
+                                                  0, 0, 0, 8),
+                                          child: Text(
+                                            listViewAcaoRecord.codigo!,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText2
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  fontSize: 14,
+                                                ),
                                           ),
+                                        ),
+                                        Text(
+                                          'R\$ ${listViewAcaoRecord.preco?.toString()}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                fontSize: 22,
+                                              ),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          ).animateOnPageLoad(
-                              animationsMap['listViewOnPageLoadAnimation']!);
-                        },
-                      ),
-                    ),
-                  ],
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8, 0, 20, 0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        valueOrDefault<String>(
+                                          listViewAcaoRecord.foto,
+                                          'https://e7.pngegg.com/pngimages/143/504/png-clipart-ticker-symbol-computer-icons-portfolio-chart-market-blue-angle.png',
+                                        ),
+                                        width: 74,
+                                        height: 74,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ).animateOnPageLoad(
+                        animationsMap['listViewOnPageLoadAnimation']!);
+                  },
                 ),
               ),
             ),

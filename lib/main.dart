@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
       home: initialUser == null || displaySplashImage
           ? Builder(
               builder: (context) => Container(
-                color: Color(0xFF276BB5),
+                color: FlutterFlowTheme.of(context).black600,
                 child: Center(
                   child: Image.asset(
                     'assets/images/Prancheta_5.png',
@@ -103,8 +103,8 @@ class _MyAppState extends State<MyApp> {
               ),
             )
           : currentUser!.loggedIn
-              ? PaginaPrincipalWidget()
-              : LoginWidget(),
+              ? LoginWidget()
+              : CadastroWidget(),
     );
   }
 }

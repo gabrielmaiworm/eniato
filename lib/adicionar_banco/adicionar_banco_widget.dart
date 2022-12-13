@@ -93,126 +93,131 @@ class _AdicionarBancoWidgetState extends State<AdicionarBancoWidget>
         elevation: 2,
       ),
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Row(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 240,
+                      height: 70,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).background,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 240,
-                    height: 70,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).background,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
+                  Lottie.asset(
+                    'assets/lottie_animations/61018-bank-icon.json',
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: 300,
+                    fit: BoxFit.cover,
+                    animate: true,
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Lottie.asset(
-                  'assets/lottie_animations/61018-bank-icon.json',
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  height: 300,
-                  fit: BoxFit.cover,
-                  animate: true,
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 30),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 8),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            'Adicionar Banco',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context).title1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.of(context).black600,
-                                ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 30),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
                             child: Text(
-                              'Adicione o banco que será vinculado para que possa facilitar o gerenciamento das suas transações e pagamentos.',
+                              'Adicionar Banco',
                               textAlign: TextAlign.center,
                               style: FlutterFlowTheme.of(context)
-                                  .subtitle2
+                                  .title1
                                   .override(
                                     fontFamily: 'Lexend Deca',
                                     color:
-                                        FlutterFlowTheme.of(context).textcolor2,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.normal,
+                                        FlutterFlowTheme.of(context).black600,
                                   ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-              child: FFButtonWidget(
-                onPressed: () async {
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SelecaoBancosWidget(),
-                    ),
-                  );
-                },
-                text: 'Adicionar',
-                options: FFButtonOptions(
-                  width: 190,
-                  height: 50,
-                  color: FlutterFlowTheme.of(context).primaryColor,
-                  textStyle: FlutterFlowTheme.of(context).title3.override(
-                        fontFamily: 'Lexend Deca',
-                        fontWeight: FontWeight.normal,
+                        ],
                       ),
-                  elevation: 3,
-                  borderSide: BorderSide(
-                    color: Colors.transparent,
-                    width: 1,
-                  ),
-                  borderRadius: BorderRadius.circular(30),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                              child: Text(
+                                'Adicione o banco que será vinculado para que possa facilitar o gerenciamento das suas transações e pagamentos.',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textcolor2,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ).animateOnActionTrigger(
-                  animationsMap['buttonOnActionTriggerAnimation']!,
-                  hasBeenTriggered: hasButtonTriggered),
-            ),
-          ],
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 30),
+                child: FFButtonWidget(
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SelecaoBancosWidget(),
+                      ),
+                    );
+                  },
+                  text: 'Adicionar',
+                  options: FFButtonOptions(
+                    width: 190,
+                    height: 50,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).title3.override(
+                          fontFamily: 'Lexend Deca',
+                          fontWeight: FontWeight.normal,
+                        ),
+                    elevation: 3,
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ).animateOnActionTrigger(
+                    animationsMap['buttonOnActionTriggerAnimation']!,
+                    hasBeenTriggered: hasButtonTriggered),
+              ),
+            ],
+          ),
         ),
       ),
     );
