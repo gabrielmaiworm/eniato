@@ -1,0 +1,72 @@
+1. O Firebase é um conjunto de ferramentas para desenvolvimento de aplicativos móveis e web oferecido pelo Google. Ele oferece uma série de recursos como armazenamento de dados, autenticação de usuários, hospedagem de aplicativos, análise de dados e muito mais, tornando-o uma plataforma poderosa e completa para o desenvolvimento de aplicativos. Ele é usado por muitos desenvolvedores em todo o mundo para criar aplicativos de alta qualidade de maneira rápida e eficiente.
+
+2. Firebase é uma plataforma de desenvolvimento de aplicativos da Google que oferece serviços de back-end, incluindo banco de dados em tempo real, armazenamento de arquivos, autenticação de usuários e outras funcionalidades para ajudar os desenvolvedores a construir aplicativos de alta qualidade. Ele permite que os desenvolvedores criem aplicativos móveis e da web rapidamente, sem se preocupar com a complexidade de gerenciar o back-end por conta própria.
+
+
+Tabelas:
+
+Users -> Tabela usada no armazenamento dos dados do usuário no banco de dados.
+
+Campo              Data Type
+
+email              String
+password           String
+display_name       String
+age                Integer
+location           Lat Lng
+phone_number       String
+photo_url          Image Path
+created_time       Timestamp
+tipoConsumo        String
+tipoInvestimento   String
+
+Banco -> Tabela usada na listagem de bancos para que o usuário selecione algum e cadastre seus dados.
+Campo              Data Type
+
+logo               Image Path
+codigo             String
+razao_social       String
+corBackground      Color
+
+
+Acao -> Tabela usada na listagem das ações disponíveis para a venda e a compra.
+
+Campo       Data Type
+
+nome        String
+foto        Image Path
+preco       Double
+codigo      String
+tipo        String
+
+Gasto -> Tabela usada na listagem de gastos do usuário.
+
+Campo              Data Type
+
+destinatario       String
+valor              Double
+tipo               String
+tipoInvestidor     String
+nome               String
+
+Banco_user -> Tabela auxiliar que liga a tabela de usuários a tabela de bancos, acrescentando alguns campos da conta do usuário, como agência e conta. Usada para listar as contas nos Bancos do usuário.
+
+Campo              Data Type
+
+agencia            String
+conta              String
+cpf                String
+userRef            Doc Reference(users)
+bankRef            Doc Reference(banco)
+cor                Color
+saldo              Double
+
+Acao_user -> Tabela auxiliar que liga a tabela de usuários a tabela de ações, acrescentando os campos de nome, quantidade e valor. Usada para listar as ações do usuário.
+
+Campo              Data Type
+
+nome               String 
+quantidade         Integer
+userRef            Doc Reference(users)
+acaoRef            Doc Reference(acao)
+valor              Double
